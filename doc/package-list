@@ -1,0 +1,8 @@
+com.example.sqltest
+com.example.sqltest.sql.config
+com.example.sqltest.sql.controller
+com.example.sqltest.sql.exception
+com.example.sqltest.sql.model
+com.example.sqltest.sql.repository
+com.example.sqltest.sql.service
+com.example.sqltest.sql.service.serviceimpl
