@@ -32,6 +32,7 @@ dependencies {
     testCompile group: 'com.h2database', name: 'h2', version: '1.4.196'
     testRuntime("org.junit.platform:junit-platform-launcher:1.2.0-M1")
     testRuntime("org.junit.vintage:junit-vintage-engine:5.2.0-M1")
+    compile 'org.springframework.security:spring-security-web:5.0.4.RELEASE'
     compile group: 'com.k4hub', name: 'swagger2-spring-boot-starter', version: '1.0-RELEASE'
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.13.Final'
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'

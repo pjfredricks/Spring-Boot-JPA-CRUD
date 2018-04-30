@@ -79,7 +79,7 @@ public class SubscriberServiceTest {
 
     @Test
     public void testSNumExists() {
-        assertEquals(subscriberServiceImpl.sNumExists(anyString()), true);
+        assertEquals(true, subscriberServiceImpl.sNumExists(anyString()));
     }
 
     @Test

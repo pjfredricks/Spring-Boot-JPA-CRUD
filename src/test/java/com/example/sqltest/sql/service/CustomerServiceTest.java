@@ -83,7 +83,7 @@ public class CustomerServiceTest {
 
     @Test
     public void recordExists() {
-        assertEquals(customerServiceImpl.recordExists(anyString()), true);
+        assertEquals(true, customerServiceImpl.recordExists(anyString()));
     }
 
 }
