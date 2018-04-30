@@ -5,6 +5,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+/**
+ * Defines the various operations performed on subscriber table
+ *
+ * @author Jfredricks
+ * @version 1.0
+ * @see Subscriber
+ */
 public interface SubscriberService {
     /**
      * Lists out all rows in customer table

@@ -4,8 +4,8 @@ import com.example.sqltest.sql.model.Customer;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
- * A class with the various services provided to customer
- *
+ * Defines the various services performed on customer table
+ * @see Customer
  * @author Jfredricks
  * @version 1.0
  */

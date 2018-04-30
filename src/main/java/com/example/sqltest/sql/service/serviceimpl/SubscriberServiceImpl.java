@@ -8,6 +8,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+/**
+ * Implementation of SubscriberService
+ *
+ * @author Jfredricks
+ * @version 1.0
+ * @see SubscriberService
+ */
 @org.springframework.stereotype.Service
 public class SubscriberServiceImpl implements SubscriberService {
 
@@ -43,8 +50,7 @@ public class SubscriberServiceImpl implements SubscriberService {
      * @param subscriber is the values to be updated
      * @return saved values
      */
-    public Subscriber updateTable(@RequestBody Subscriber subscriber)
-    {
+    public Subscriber updateTable(@RequestBody Subscriber subscriber) {
         Subscriber foundByServiceNum = sRepo.findByServiceNum(subscriber.getServiceNum());
         foundByServiceNum.setAccountNum(subscriber.getAccountNum());
         foundByServiceNum.setCreatedBy(subscriber.getCreatedBy());
