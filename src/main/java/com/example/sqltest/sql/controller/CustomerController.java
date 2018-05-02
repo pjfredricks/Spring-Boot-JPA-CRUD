@@ -2,6 +2,7 @@ package com.example.sqltest.sql.controller;
 
 import com.example.sqltest.sql.exception.DbException;
 import com.example.sqltest.sql.model.Customer;
+import com.example.sqltest.sql.model.Response;
 import com.example.sqltest.sql.service.serviceimpl.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class CustomerController {
      * @throws DbException
      */
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody Customer r) throws DbException {
+    public ResponseEntity<Response> create(@RequestBody Customer r) {
         if (r.getStatus().equals("LEGACY") || r.getStatus().equals("MIGRATED")) {
             if (cImpl.recordExists(r.getCustomerId()))
                 return commonResponse(RECORD_EXISTS);
@@ -53,7 +54,7 @@ public class CustomerController {
      * @throws DbException
      */
     @PostMapping("/update")
-    public ResponseEntity<?> update(@RequestBody Customer r) throws DbException {
+    public ResponseEntity<Response> update(@RequestBody Customer r) {
         if (!cImpl.recordExists(r.getCustomerId()))
             return commonResponse(NO_SUCH_RECORD);
         else {
@@ -72,7 +73,7 @@ public class CustomerController {
      * @throws DbException
      */
     @DeleteMapping("/delete/{customer_id}")
-    public ResponseEntity<?> delete(@PathVariable("customer_id") String cId) throws DbException {
+    public ResponseEntity<Response> delete(@PathVariable("customer_id") String cId) {
         if (!cImpl.recordExists(cId))
             return commonResponse(NO_SUCH_RECORD);
         else {

@@ -1,6 +1,7 @@
 package com.example.sqltest.sql.model;
 
 import com.example.sqltest.sql.exception.DbException;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,7 +32,7 @@ public class Response {
      * @return a responseString message and HttpStatus Ok
      */
     @ExceptionHandler(Exception.class)
-    public static final ResponseEntity<?> handleAllExceptions(DbException ex, WebRequest request) {
+    public static final ResponseEntity<String> handleAllExceptions(DbException ex, WebRequest request) {
         return new ResponseEntity<>(ERROR_RESPONSE, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -40,7 +41,7 @@ public class Response {
      * @param resp the message to be shown to user
      * @return resp with HTTPStatus OK
      */
-    public static ResponseEntity<?> commonResponse(String resp) {
+    public static ResponseEntity<Response> commonResponse(String resp) {
         Response res = new Response();
         res.setResponseString(resp);
         return new ResponseEntity<>(res, HttpStatus.OK);

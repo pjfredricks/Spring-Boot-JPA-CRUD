@@ -1,6 +1,7 @@
 package com.example.sqltest.sql.controller;
 
 import com.example.sqltest.sql.exception.DbException;
+import com.example.sqltest.sql.model.Response;
 import com.example.sqltest.sql.model.Subscriber;
 import com.example.sqltest.sql.service.serviceimpl.SubscriberServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class SubscriberController {
      * @throws DbException
      */
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody Subscriber s) throws DbException {
+    public ResponseEntity<Response> create(@RequestBody Subscriber s) {
         if (s.getStatus().equals("LEGACY") || s.getStatus().equals("MIGRATED")) {
             if (subImpl.sNumExists(s.getServiceNum()))
                 return commonResponse(RECORD_EXISTS);
@@ -63,7 +64,7 @@ public class SubscriberController {
      * @throws DbException
      */
     @PostMapping("/update")
-    public ResponseEntity<?> update(@RequestBody Subscriber s) throws DbException {
+    public ResponseEntity<Response> update(@RequestBody Subscriber s) {
         if (!subImpl.sNumExists(s.getServiceNum()))
             return commonResponse(NO_SUCH_RECORD);
         else {
@@ -82,7 +83,7 @@ public class SubscriberController {
      * @throws DbException
      */
     @DeleteMapping("/delete/{service_num}")
-    public ResponseEntity<?> delete(@PathVariable("service_num") String sNo) throws DbException {
+    public ResponseEntity<Response> delete(@PathVariable("service_num") String sNo) {
         if (!subImpl.sNumExists(sNo))
             return commonResponse(NO_SUCH_RECORD);
         else {
