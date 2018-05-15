@@ -1,0 +1,7 @@
+<service>
+      <id>sqltest-api</id>
+      <name>sqltest</name>
+      <description>This service sqltest-api.</description>
+      <executable>java -jar</executable>
+      <logmode>rotate</logmode>
+    </service>
