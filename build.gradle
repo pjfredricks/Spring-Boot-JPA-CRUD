@@ -26,7 +26,21 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-
+/*
+configurations {
+    compile.exclude module: 'spring-boot-starter-logging'
+    compile.exclude module: 'jackson-coreutils'
+    integrationTest.extendsFrom testRuntime
+}
+sourceSets {
+    integrationTest {
+        java.srcDir file('src/integrationTest/java')
+        resources.srcDir file('src/integrationTest/resources')
+        compileClasspath = sourceSets.main.output + configurations.integrationTest
+        runtimeClasspath = output + compileClasspath
+    }
+}
+*/
 
 dependencies {
     testCompile group: 'com.h2database', name: 'h2', version: '1.4.196'

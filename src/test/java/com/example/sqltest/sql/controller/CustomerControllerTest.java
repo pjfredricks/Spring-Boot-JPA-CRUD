@@ -44,7 +44,6 @@ public class CustomerControllerTest {
         setCustomer = CustomerServiceTest.setCustomerRepository();     //Setting test values for Customer Object
         listOfCustomers = Arrays.asList(setCustomer);      //Setting up a lisOfSubscribers of Customer values
         Mockito.when(customerServiceImpl.listTable()).thenReturn((List) listOfCustomers);   //Mock for getAll
-        Mockito.when(customerServiceImpl.recordExists(Mockito.anyString())).thenReturn(true);
         Mockito.when(customerServiceImpl.recordExists(Mockito.anyString())).thenReturn(false); //Mock for checking record exists
         Mockito.doNothing().when(customerServiceImpl).create(setCustomer);  //Mock for create
         Mockito.when(customerServiceImpl.updateTable(setCustomer)).thenReturn(setCustomer); //Mock for update
@@ -62,6 +61,7 @@ public class CustomerControllerTest {
 
     @Test
     public void createRecordExists() throws Exception {
+        Mockito.when(customerServiceImpl.recordExists(Mockito.anyString())).thenReturn(true);
         mockMvc.perform(post("/db/customer/create"));
         assertEquals(HttpStatus.OK, customerController.create(setCustomer).getStatusCode());
     }
@@ -82,18 +82,21 @@ public class CustomerControllerTest {
 
     @Test
     public void updateNoSuchRecord() throws Exception {
+        Mockito.when(customerServiceImpl.recordExists(Mockito.anyString())).thenReturn(false);
         mockMvc.perform(post("/db/customer/update"));
         assertEquals(HttpStatus.OK, customerController.update(setCustomer).getStatusCode());
     }
 
     @Test
     public void updateRecordUpdated() throws Exception {
+        Mockito.when(customerServiceImpl.recordExists(Mockito.anyString())).thenReturn(true);
         mockMvc.perform(post("/db/customer/update"));
         assertEquals(HttpStatus.OK, customerController.update(setCustomer).getStatusCode());
     }
 
     @Test
     public void updateStatusCheck() throws Exception {
+        Mockito.when(customerServiceImpl.recordExists(Mockito.anyString())).thenReturn(true);
         setCustomer.setStatus("dsffsdfs");
         mockMvc.perform(post("/db/customer/update"));
         assertEquals(200, customerController.update(setCustomer).getStatusCodeValue());
@@ -101,6 +104,7 @@ public class CustomerControllerTest {
 
     @Test
     public void deleteIfExists() throws Exception {
+        Mockito.when(customerServiceImpl.recordExists(Mockito.anyString())).thenReturn(true);
         mockMvc.perform(post("/db/customer/delete/{customer_id}", "123"));
         assertEquals(200, customerController.delete(setCustomer.getCustomerId()).getStatusCodeValue());
     }
