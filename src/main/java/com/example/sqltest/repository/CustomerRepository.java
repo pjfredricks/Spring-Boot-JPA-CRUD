@@ -1,6 +1,6 @@
 package com.example.sqltest.repository;
 
-import com.example.sqltest.model.Customer;
+import com.example.sqltest.repository.model.Customer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,12 +8,7 @@ import org.springframework.stereotype.Repository;
  * Repository which extends CrudRepository
  */
 @Repository
-public interface CustomerRepository extends CrudRepository<Customer, Long> {
-    /**
-     * Finds a row with matching cusotmerId
-     *
-     * @param cId is the customerId to be searched
-     * @return a row with matching cId
-     */
-    Customer findByCustomerId(String cId);
+public interface CustomerRepository {
+
+    Customer getCustomerByCustomerId(String cId);
 }

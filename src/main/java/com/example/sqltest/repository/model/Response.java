@@ -1,4 +1,4 @@
-package com.example.sqltest.model;
+package com.example.sqltest.repository.model;
 
 import com.example.sqltest.exception.DbException;
 //import org.json.JSONObject;

@@ -1,8 +1,8 @@
 package com.example.sqltest.controller;
 
 import com.example.sqltest.exception.DbException;
-import com.example.sqltest.model.Response;
-import com.example.sqltest.model.Subscriber;
+import com.example.sqltest.repository.model.Response;
+import com.example.sqltest.repository.model.Subscriber;
 import com.example.sqltest.service.serviceimpl.SubscriberServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

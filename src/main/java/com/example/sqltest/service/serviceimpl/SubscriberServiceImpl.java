@@ -1,6 +1,6 @@
 package com.example.sqltest.service.serviceimpl;
 
-import com.example.sqltest.model.Subscriber;
+import com.example.sqltest.repository.model.Subscriber;
 import com.example.sqltest.repository.SubscriberRepository;
 import com.example.sqltest.service.SubscriberService;
 import org.springframework.beans.factory.annotation.Autowired;

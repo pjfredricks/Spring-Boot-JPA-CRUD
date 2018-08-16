@@ -1,6 +1,6 @@
 package com.example.sqltest.service;
 
-import com.example.sqltest.model.Subscriber;
+import com.example.sqltest.repository.model.Subscriber;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;

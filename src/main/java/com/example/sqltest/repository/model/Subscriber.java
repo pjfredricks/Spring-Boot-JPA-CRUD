@@ -1,20 +1,19 @@
-package com.example.sqltest.model;
+package com.example.sqltest.repository.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 /**
- * A class for defining the structure of our customer table
+ * A class for defining the structure of our subscriber table
  * @author Jfredricks
  * @version 1.0
  */
-@Table(name = "customer")
+@Table(name = "subscriber")
 @Entity
-public class Customer {
+public class Subscriber {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,12 +37,33 @@ public class Customer {
     @Column(name = "createdBy")
     private String createdBy;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
-    private Set<Subscriber> subscriberSet;
+    @NotNull
+    @Column(name = "serviceNum")
+    private String serviceNum;
+
+    @ManyToOne
+    @JoinColumn(foreignKey = @ForeignKey(name = "customerId"))
+    private Customer customer;
+
+    /**
+     * Getter method for customerId
+     *
+     * @return customerId
+     */
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    /**
+     * Setter method for customerId
+     * @param customerId is set to passed value
+     */
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 
     /**
      * Getter method for accountNum
-     *
      * @return accountNum
      */
     public String getAccountNum() {
@@ -107,18 +127,19 @@ public class Customer {
     }
 
     /**
-     * Getter method for customerId
-     * @return customerId
+     * Getter method for serviceNum
+     * @return serviceNum
      */
-    public String getCustomerId() {
-        return customerId;
+    public String getServiceNum() {
+        return serviceNum;
     }
 
     /**
-     * Setter method for customerId
-     * @param customerId is set to passed value
+     * Setter method for  serviceNum
+     * @param serviceNum is set to passed value
      */
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setServiceNum(String serviceNum) {
+        this.serviceNum = serviceNum;
     }
+
 }

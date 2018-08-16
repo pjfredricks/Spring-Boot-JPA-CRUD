@@ -1,10 +1,12 @@
 package com.example.sqltest.service.serviceimpl;
 
-import com.example.sqltest.model.Customer;
+import com.example.sqltest.repository.model.Customer;
 import com.example.sqltest.repository.CustomerRepository;
 import com.example.sqltest.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 /**
  * Implementation of CustomerService
@@ -17,21 +19,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
-    private CustomerRepository cRepo;
+    private CustomerRepository customerRepository;
 
     /**
      * Creates a new row and saves it
      * @param customer is saved to Customer table
      */
     public void create(@RequestBody Customer customer) {
-        cRepo.save(customer);
+        customerRepository.save(customer);
     }
 
     /**
      * @return lists all the rows in Customer table
      */
-    public Iterable<Customer> listTable() {
-        return cRepo.findAll();
+    public List<Customer> listTable() {
+        return customerRepository.findAll();
+    }
+
+    public Customer getCustomerByCustomerId(String customerId) {
+        return customerRepository.getCustomerByCustomerId(customerId);
     }
 
     /**
@@ -39,12 +45,18 @@ public class CustomerServiceImpl implements CustomerService {
      * @param customer contains values to be updated
      * @return saved row
      */
-    public Customer updateTable(@RequestBody Customer customer) {
-        Customer foundByCustomerId = cRepo.findByCustomerId(customer.getCustomerId());
-        foundByCustomerId.setAccountNum(customer.getAccountNum());
-        foundByCustomerId.setCreatedBy(customer.getCreatedBy());
-        foundByCustomerId.setStatus(customer.getStatus());
-        return cRepo.save(foundByCustomerId);
+    public Customer updateTable(Customer customer) {
+        try {
+            if (recordExists(customer.getCustomerId())) {
+                Customer foundByCustomerId = customerRepository.findByCustomerId(customer.getCustomerId());
+                foundByCustomerId.setAccountNum(customer.getAccountNum());
+                foundByCustomerId.setCreatedBy(customer.getCreatedBy());
+                foundByCustomerId.setStatus(customer.getStatus());
+                return customerRepository.save(foundByCustomerId);
+            }
+        }catch(Exception e) {
+
+        }
     }
 
     /**
@@ -52,8 +64,8 @@ public class CustomerServiceImpl implements CustomerService {
      * @param cId is the customer ID of the row to be deleted
      */
     public void deleteRow(String cId) {
-        Customer foundByCustomerId = cRepo.findByCustomerId(cId);
-        cRepo.delete(foundByCustomerId);
+        Customer foundByCustomerId = customerRepository.findByCustomerId(cId);
+        customerRepository.delete(foundByCustomerId);
     }
 
     /**
@@ -61,7 +73,8 @@ public class CustomerServiceImpl implements CustomerService {
      * @param cId is the customer ID of the row
      * @return true or false
      */
+    //TODO: If record exists return true or false
     public boolean recordExists(String cId) {
-        return cRepo.findByCustomerId(cId) != null;
+        return customerRepository.findByCustomerId(cId) != null;
     }
 }

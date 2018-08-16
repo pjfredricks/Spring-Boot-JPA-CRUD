@@ -1,7 +1,9 @@
 package com.example.sqltest.service;
 
-import com.example.sqltest.model.Customer;
+import com.example.sqltest.repository.model.Customer;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 /**
  * Defines the various services performed on customer table
@@ -20,7 +22,9 @@ public interface CustomerService {
     /**
      * Lists out all rows in customer table
      */
-    Iterable<Customer> listTable();
+    List<Customer> listTable();
+
+    Customer getCustomerByCustomerId(String customerId);
 
     /**
      * Updates a row with new values
