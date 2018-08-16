@@ -16,9 +16,9 @@ public interface SubscriberService {
     /**
      * Lists out all rows in customer table
      */
-  /*  Iterable<Subscriber> listTable();
+    List<Subscriber> getSubscribers();
 
-    *//**
+    /**
      * Creates a new row in subscriber table
      *
      * @param subscriber is the object with values to be updated
@@ -46,8 +46,8 @@ public interface SubscriberService {
 
     *//**
      * Lists all rows in subscriber table with common customerId
-     * @param cId is the custometId to be checked
+     * @param customerId is the custometId to be checked
      * @return a list of subscriber rows
-     *//*
-    List<Subscriber> listTableByCustomerId(String cId);*/
+     */
+    List<Subscriber> getSubscriberByCustomerId(String customerId);
 }

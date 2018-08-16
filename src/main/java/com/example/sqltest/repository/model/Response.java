@@ -31,10 +31,10 @@ public class Response {
      * @param request is the webrequest passed
      * @return a responseString message and HttpStatus Ok
      */
-    @ExceptionHandler(Exception.class)
+    /*@ExceptionHandler(Exception.class)
     public static final ResponseEntity<String> handleAllExceptions(DbException ex, WebRequest request) {
         return new ResponseEntity<>(ERROR_RESPONSE, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+    }*/
 
     /**
      * Returns responseString with HTTPStatus OK

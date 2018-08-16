@@ -11,6 +11,12 @@ import java.util.List;
  */
 
 public interface SubscriberRepository {
+
+
+    List<Subscriber> getSubscribers();
+
+    List<Subscriber> getSubscriberByCustomerId(String customerId);
+
     /**
      * Finds a row with matching ServiceNum
      *
