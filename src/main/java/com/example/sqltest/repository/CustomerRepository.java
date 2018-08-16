@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 /**
  * Repository which extends CrudRepository
  */
-@Repository
+
 public interface CustomerRepository {
 
     Customer getCustomerByCustomerId(String cId);

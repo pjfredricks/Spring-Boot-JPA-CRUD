@@ -17,31 +17,31 @@ public interface CustomerService {
      * Creates a new row in customer table
      * @param customer is the object with values to be updated
      */
-    void create(@RequestBody Customer customer);
+    /*void create(@RequestBody Customer customer);
 
-    /**
+    *//**
      * Lists out all rows in customer table
-     */
-    List<Customer> listTable();
+     *//*
+    List<Customer> listTable();*/
 
     Customer getCustomerByCustomerId(String customerId);
 
-    /**
+  /*  *//**
      * Updates a row with new values
      * @param customer is the object with values to be updated
-     */
+     *//*
     Customer updateTable(@RequestBody Customer customer);
 
-    /**
+    *//**
      * Deletes a row from cusotmer table
      * @param cId is the customerId of the row to be deleted
-     */
+     *//*
     void deleteRow(String cId);
 
-    /**
+    *//**
      * Checks if a record exists or not
      * @param cId is the customerId to be checked
      * @return true or false
-     */
-    boolean recordExists(String cId);
+     *//*
+    boolean recordExists(String cId);*/
 }

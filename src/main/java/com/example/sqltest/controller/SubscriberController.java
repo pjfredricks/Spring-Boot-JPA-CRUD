@@ -24,30 +24,30 @@ public class SubscriberController {
     /**
      * Gets all rows from subscriber table
      * @return list of rows
-     */
+     *//*
     @ApiOperation("Retrieves all records from Subscriber table")
     @GetMapping("/all")
     public Iterable<Subscriber> getAll() {
         return subImpl.listTable();
     }
 
-    /**
+    *//**
      * Get all rows with common customerId
      * @param cId is the customer ID provided by user
      * @return all subscriber rows with customer ID cId
-     */
+     *//*
     @ApiOperation("Retrieves all records from Subscriber table by Customer Id")
     @GetMapping("/all/{customer_id}")
     public List<Subscriber> getAllByCustomerId(@PathVariable("customer_id") String cId) {
         return subImpl.listTableByCustomerId(cId);
     }
 
-    /**
+    *//**
      * Creates a new row if the values are validated successfully
      * @param s is the row passed as parameter
      * @return a response message
      * @throws DbException
-     */
+     *//*
     @ApiOperation("Adds a new record to Subscriber table")
     @PostMapping("/create")
     public ResponseEntity<Response> create(@RequestBody Subscriber s) {
@@ -60,12 +60,12 @@ public class SubscriberController {
         return Response.commonResponse(Response.RECORD_CREATED);
     }
 
-    /**
+    *//**
      * Update an existing row in the table
      * @param s is the row passed as parameter
      * @return a response message
      * @throws DbException
-     */
+     *//*
     @ApiOperation("Updates a record in Subscriber table")
     @PostMapping("/update")
     public ResponseEntity<Response> update(@RequestBody Subscriber s) {
@@ -80,12 +80,12 @@ public class SubscriberController {
         }
     }
 
-    /**
+    *//**
      * Deletes a row from the table if it exists
      * @param sNo the ServiceNum of the table to be deleted
      * @return a response message
      * @throws DbException
-     */
+     *//*
     @ApiOperation("Deletes a record from Subscriber table")
     @DeleteMapping("/delete/{service_num}")
     public ResponseEntity<Response> delete(@PathVariable("service_num") String sNo) {
@@ -95,5 +95,5 @@ public class SubscriberController {
             subImpl.deleteRow(sNo);
             return Response.commonResponse(Response.RECORD_DELETED);
         }
-    }
+    }*/
 }
