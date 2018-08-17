@@ -1,8 +1,6 @@
 package com.example.sqltest.service;
 
 import com.example.sqltest.repository.model.Customer;
-import com.example.sqltest.web.models.CustomerDTO;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -21,28 +19,29 @@ public interface CustomerService {
      Customer create(Customer customer) throws Exception;
 
     /**
-     * Lists out all rows in customer table
+     * Retrieves all records in customer table
+     * @return List
+     * @throws Exception
      */
     List<Customer> getCustomers() throws Exception;
 
+    /**
+     * Retrieves Customer record by customerId
+     * @param customerId
+     * @return Customer
+     * @throws Exception
+     */
     Customer getCustomerByCustomerId(String customerId) throws Exception;
 
      /**
      * Updates a row with new values
      * @param customer is the object with values to be updated
      */
-     Customer updateTable(String customerId, Customer customer) throws Exception;
+     void updateTable(String customerId, Customer customer) throws Exception;
 
      /**
      * Deletes a row from cusotmer table
      * @param cId is the customerId of the row to be deleted
-     *//*
-    void deleteRow(String cId);
-
-    *//**
-     * Checks if a record exists or not
-     * @param cId is the customerId to be checked
-     * @return true or false
      */
-     boolean recordExists(String cId) throws Exception;
+    void deleteRow(String cId)  throws Exception ;
 }

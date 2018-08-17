@@ -37,7 +37,7 @@ public class SubscriberControllerTest {
                 .build();
         setSubscriber = SubscriberServiceTest.setSubscriberRepository();    //Setting test values for Subscriber Object
         lisOfSubscribers = Arrays.asList(setSubscriber);    //Setting up a lisOfSubscribers of Subscriber values
-        Mockito.when(subscriberServiceImpl.listTable()).thenReturn((List) lisOfSubscribers);    //Mock for getAll
+        Mockito.when(subscriberServiceImpl.listTable()).thenReturn((List) lisOfSubscribers);    //Mock for getSubscribers
         Mockito.when(subscriberServiceImpl.listTableByCustomerId(Mockito.anyString())).thenReturn((List) lisOfSubscribers);     //Mock for getAllByCustomerId
         Mockito.when(subscriberServiceImpl.sNumExists(Mockito.anyString())).thenReturn(true);   //Mock to pass ServiceNum check
         Mockito.when(subscriberServiceImpl.sNumExists(Mockito.anyString())).thenReturn(false);  //Mock to fail ServiceNum check

@@ -1,9 +1,6 @@
 package com.example.sqltest.repository;
 
 import com.example.sqltest.repository.model.Customer;
-import com.example.sqltest.web.models.CustomerDTO;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -20,4 +17,6 @@ public interface CustomerRepository {
     void save(Customer customer) throws Exception;
 
     void update(Customer customer) throws Exception;
+
+    void delete(Customer customer) throws Exception;
 }

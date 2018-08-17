@@ -13,22 +13,15 @@ import java.util.List;
 public interface SubscriberRepository {
 
 
-    List<Subscriber> getSubscribers();
+    List<Subscriber> getSubscribers()  throws Exception;
 
-    List<Subscriber> getSubscriberByCustomerId(String customerId);
+    List<Subscriber> getSubscriberByCustomerId(String customerId)  throws Exception;
 
-    /**
-     * Finds a row with matching ServiceNum
-     *
-     * @param sNo is the serviceNum passed
-     * @return a row with matching sNo
-     */
-    //Subscriber findByServiceNum(String sNo);
+     Subscriber getSubscriberByServiceNum(String serviceNum)  throws Exception;
 
-    /**
-     * Finds a list of rows with matching customerId
-     * @param cId is the customerId passed
-     * @return a list of rows with matching cId
-     */
-   // List<Subscriber> findByCustomerId(String cId);
+     void save(Subscriber subscriber)  throws Exception;
+
+     void update(Subscriber subscriber) throws Exception;
+
+     void delete(Subscriber subscriber) throws Exception;
 }

@@ -3,7 +3,6 @@ package com.example.sqltest.web;
 import com.example.sqltest.exception.DbException;
 import com.example.sqltest.repository.model.Subscriber;
 import com.example.sqltest.service.SubscriberService;
-import com.example.sqltest.service.serviceimpl.SubscriberServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +13,7 @@ import java.util.List;
 
 /**
  * Implements all CRUD Operations for customer table
+ *
  * @author Jfredricks
  * @version 1.0
  */
@@ -26,77 +26,87 @@ public class SubscriberController {
 
     /**
      * Gets all rows from subscriber table
-     * @return list of rows
+     *
+     * @return ResponseEntity
      */
     @ApiOperation("Retrieves all records from Subscriber table")
-    @GetMapping("/all")
-    public ResponseEntity<List<Subscriber>> getAll() {
+    @GetMapping("")
+    public ResponseEntity<List<Subscriber>> getSubscribers() throws Exception {
         return new ResponseEntity<>(subscriberService.getSubscribers(), HttpStatus.OK);
     }
 
     /**
      * Get all rows with common customerId
+     *
      * @param customerId is the customer ID provided by user
-     * @return all subscriber rows with customer ID cId
+     * @return ResponseEntity
      */
     @ApiOperation("Retrieves all records from Subscriber table by Customer Id")
-    @GetMapping("/all/{customerId}")
-    public List<Subscriber> getSubscriberByCustomerId(@PathVariable("customerId") String customerId) {
+    @GetMapping("/{customerId}")
+    public List<Subscriber> getSubscriberByCustomerId(@PathVariable("customerId") String customerId) throws Exception {
         return subscriberService.getSubscriberByCustomerId(customerId);
+    }
+
+
+    /**
+     * Gets
+     *
+     * @param serviceNum
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation("Retrieves all records from Subscriber table by Customer Id")
+    @GetMapping("/{serviceNum}")
+    public Subscriber getSubscriberByServiceNum(@PathVariable("serviceNum") String serviceNum) throws Exception {
+        return subscriberService.getSubscriberByServiceNum(serviceNum);
     }
 
     /**
      * Creates a new row if the values are validated successfully
-     * @param s is the row passed as parameter
-     * @return a response message
+     *
+     * @param subscriber is the row passed as parameter
+     * @return ResponseEntity
      * @throws DbException
      */
-   /* @ApiOperation("Adds a new record to Subscriber table")
-    @PostMapping("/create")
-    public ResponseEntity<Response> create(@RequestBody Subscriber s) {
-        if (s.getStatus().equals("LEGACY") || s.getStatus().equals("MIGRATED")) {
-            if (subscriberService.sNumExists(s.getServiceNum()))
-                return Response.commonResponse(Response.RECORD_EXISTS);
-        } else
-            return Response.commonResponse(Response.STATUS_CHECK);
-        subscriberService.create(s);
-        return Response.commonResponse(Response.RECORD_CREATED);
-    }*/
-
-    /**
-     * Update an existing row in the table
-     * @param s is the row passed as parameter
-     * @return a response message
-     * @throws DbException
-     *//*
-    @ApiOperation("Updates a record in Subscriber table")
-    @PostMapping("/update")
-    public ResponseEntity<Response> update(@RequestBody Subscriber s) {
-        if (!subscriberService.sNumExists(s.getServiceNum()))
-            return Response.commonResponse(Response.NO_SUCH_RECORD);
-        else {
-            if (s.getStatus().equals("LEGACY") || s.getStatus().equals("MIGRATED"))
-                subscriberService.updateTable(s);
-            else
-                return Response.commonResponse(Response.STATUS_CHECK);
-            return Response.commonResponse(Response.RECORD_UPDATED);
+    @ApiOperation("Adds a new record to Subscriber table")
+    @PostMapping("")
+    public ResponseEntity<Subscriber> create(@RequestBody Subscriber subscriber) throws Exception {
+        if (subscriber.getStatus().equalsIgnoreCase("LEGACY") || subscriber.getStatus().equalsIgnoreCase("MIGRATED")) {
+            return new ResponseEntity<>(subscriberService.create(subscriber), HttpStatus.CREATED);
+        } else {
+            throw new Exception("Invalid Status");
         }
     }
 
-    *//**
-     * Deletes a row from the table if it exists
-     * @param sNo the ServiceNum of the table to be deleted
-     * @return a response message
+    /**
+     * Update an existing row in the table
+     *
+     * @param s is the row passed as parameter
+     * @return ResponseEntity
      * @throws DbException
-     *//*
+     */
+    @ApiOperation("Updates a record in Subscriber table")
+    @PostMapping("")
+    public ResponseEntity update(@RequestBody Subscriber s) throws Exception {
+        if (s.getStatus().equalsIgnoreCase("LEGACY") || s.getStatus().equalsIgnoreCase("MIGRATED")) {
+            subscriberService.update(s);
+            return new ResponseEntity(HttpStatus.ACCEPTED);
+        } else {
+            throw new Exception("Invalid Status");
+        }
+    }
+
+    /**
+     * Deletes a row from the table if it exists
+     *
+     * @param serviceNum the ServiceNum of the table to be deleted
+     * @return ResponseEntity
+     * @throws DbException
+     */
     @ApiOperation("Deletes a record from Subscriber table")
     @DeleteMapping("/delete/{service_num}")
-    public ResponseEntity<Response> delete(@PathVariable("service_num") String sNo) {
-        if (!subscriberService.sNumExists(sNo))
-            return Response.commonResponse(Response.NO_SUCH_RECORD);
-        else {
-            subscriberService.deleteRow(sNo);
-            return Response.commonResponse(Response.RECORD_DELETED);
-        }
-    }*/
+    public ResponseEntity delete(@PathVariable("serviceNum") String serviceNum) throws Exception {
+        subscriberService.deleteRow(serviceNum);
+        return new ResponseEntity(HttpStatus.ACCEPTED);
+    }
 }

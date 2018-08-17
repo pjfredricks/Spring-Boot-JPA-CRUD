@@ -43,7 +43,7 @@ public class CustomerControllerTest {
 
         setCustomer = CustomerServiceTest.setCustomerRepository();     //Setting test values for Customer Object
         listOfCustomers = Arrays.asList(setCustomer);      //Setting up a lisOfSubscribers of Customer values
-        Mockito.when(customerServiceImpl.listTable()).thenReturn((List) listOfCustomers);   //Mock for getAll
+        Mockito.when(customerServiceImpl.listTable()).thenReturn((List) listOfCustomers);   //Mock for getSubscribers
         Mockito.when(customerServiceImpl.recordExists(Mockito.anyString())).thenReturn(false); //Mock for checking record exists
         Mockito.doNothing().when(customerServiceImpl).create(setCustomer);  //Mock for create
         Mockito.when(customerServiceImpl.updateTable(setCustomer)).thenReturn(setCustomer); //Mock for update
