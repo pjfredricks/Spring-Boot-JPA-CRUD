@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.example.sqltest.constants.SwaggerUIConstants.*;
+import static com.example.sqltest.constants.URLConstants.*;
+
 /**
  * Implements all CRUD Operations for customer table
  *
@@ -18,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 @RestController
-@RequestMapping("db/subscriber")
+@RequestMapping(BASE_URL)
 public class SubscriberController {
 
     @Autowired
@@ -29,8 +32,8 @@ public class SubscriberController {
      *
      * @return ResponseEntity
      */
-    @ApiOperation("Retrieves all records from Subscriber table")
-    @GetMapping("")
+    @ApiOperation(RETRIEVES_ALL_RECORDS_FROM + SUBSCRIBER_TABLE)
+    @GetMapping
     public ResponseEntity<List<Subscriber>> getSubscribers() throws Exception {
         return new ResponseEntity<>(subscriberService.getSubscribers(), HttpStatus.OK);
     }
@@ -41,8 +44,8 @@ public class SubscriberController {
      * @param customerId is the customer ID provided by user
      * @return ResponseEntity
      */
-    @ApiOperation("Retrieves all records from Subscriber table by Customer Id")
-    @GetMapping("/{customerId}")
+    @ApiOperation(RETRIEVES_ALL_RECORDS_FROM + SUBSCRIBER_TABLE + BY_CUSTOMER_ID)
+    @GetMapping(CUSTOMER_ID)
     public List<Subscriber> getSubscriberByCustomerId(@PathVariable("customerId") String customerId) throws Exception {
         return subscriberService.getSubscriberByCustomerId(customerId);
     }
@@ -55,8 +58,8 @@ public class SubscriberController {
      * @return
      * @throws Exception
      */
-    @ApiOperation("Retrieves all records from Subscriber table by Customer Id")
-    @GetMapping("/{serviceNum}")
+    @ApiOperation(RETRIEVES_ALL_RECORDS_FROM + SUBSCRIBER_TABLE + BY_SERVICE_NUM )
+    @GetMapping(SERVICE_NUM)
     public Subscriber getSubscriberByServiceNum(@PathVariable("serviceNum") String serviceNum) throws Exception {
         return subscriberService.getSubscriberByServiceNum(serviceNum);
     }
@@ -68,10 +71,10 @@ public class SubscriberController {
      * @return ResponseEntity
      * @throws DbException
      */
-    @ApiOperation("Adds a new record to Subscriber table")
-    @PostMapping("")
+    @ApiOperation(ADDS_A_NEW_RECORD_TO + SUBSCRIBER_TABLE)
+    @PostMapping
     public ResponseEntity<Subscriber> create(@RequestBody Subscriber subscriber) throws Exception {
-        if (subscriber.getStatus().equalsIgnoreCase("LEGACY") || subscriber.getStatus().equalsIgnoreCase("MIGRATED")) {
+        if (subscriber.getStatus().equalsIgnoreCase(LEGACY) || subscriber.getStatus().equalsIgnoreCase(MIGRATED)) {
             return new ResponseEntity<>(subscriberService.create(subscriber), HttpStatus.CREATED);
         } else {
             throw new Exception("Invalid Status");
@@ -81,15 +84,15 @@ public class SubscriberController {
     /**
      * Update an existing row in the table
      *
-     * @param s is the row passed as parameter
+     * @param subscriber is the row passed as parameter
      * @return ResponseEntity
      * @throws DbException
      */
-    @ApiOperation("Updates a record in Subscriber table")
-    @PostMapping("")
-    public ResponseEntity update(@RequestBody Subscriber s) throws Exception {
-        if (s.getStatus().equalsIgnoreCase("LEGACY") || s.getStatus().equalsIgnoreCase("MIGRATED")) {
-            subscriberService.update(s);
+    @ApiOperation(UPDATES_A_RECORD_IN + SUBSCRIBER_TABLE)
+    @PutMapping
+    public ResponseEntity update(@RequestBody Subscriber subscriber) throws Exception {
+        if (subscriber.getStatus().equalsIgnoreCase(LEGACY) || subscriber.getStatus().equalsIgnoreCase(MIGRATED)) {
+            subscriberService.update(subscriber);
             return new ResponseEntity(HttpStatus.ACCEPTED);
         } else {
             throw new Exception("Invalid Status");
@@ -103,8 +106,8 @@ public class SubscriberController {
      * @return ResponseEntity
      * @throws DbException
      */
-    @ApiOperation("Deletes a record from Subscriber table")
-    @DeleteMapping("/{service_num}")
+    @ApiOperation(DELETES_A_RECORD_FROM + SUBSCRIBER_TABLE)
+    @DeleteMapping(SERVICE_NUM)
     public ResponseEntity delete(@PathVariable("serviceNum") String serviceNum) throws Exception {
         subscriberService.deleteRow(serviceNum);
         return new ResponseEntity(HttpStatus.ACCEPTED);

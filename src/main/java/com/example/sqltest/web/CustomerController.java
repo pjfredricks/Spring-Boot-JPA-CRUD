@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.example.sqltest.constants.SwaggerUIConstants.*;
+import static com.example.sqltest.constants.URLConstants.*;
+
 /**
  * Implements all CRUD Operations for customer table
  *
@@ -20,7 +23,7 @@ import java.util.List;
  */
 @Api
 @RestController
-@RequestMapping("db/customer")
+@RequestMapping(BASE_URL)
 public class CustomerController {
 
     @Autowired
@@ -30,8 +33,8 @@ public class CustomerController {
      * Lists all rows in customer table
      * @return ResponseEntity
      */
-    @ApiOperation("Retrieves all record from Customer Table")
-    @GetMapping("")
+    @ApiOperation(RETRIEVES_ALL_RECORDS_FROM + CUSTOMER_TABLE)
+    @GetMapping
     public ResponseEntity<List<Customer>> getCustomers() throws Exception {
         return new ResponseEntity<>(customerService.getCustomers(), HttpStatus.OK);
     }
@@ -42,8 +45,8 @@ public class CustomerController {
      * @return ResponseEntity
      * @throws Exception
      */
-    @ApiOperation("Retrieves a record from Customer table by CustomerId")
-    @GetMapping("/{customerId}")
+    @ApiOperation(RETRIEVES_ALL_RECORDS_FROM + CUSTOMER_TABLE + BY_CUSTOMER_ID)
+    @GetMapping(CUSTOMER_ID)
     public ResponseEntity<Customer> getCustomerByCustomerId(@RequestParam String customerId) throws Exception {
         return new ResponseEntity<>(customerService.getCustomerByCustomerId(customerId), HttpStatus.OK);
     }
@@ -54,10 +57,10 @@ public class CustomerController {
      * @return ResponseEntity
      * @throws DbException
      */
-    @ApiOperation("Adds a new record to Customer table")
-    @PostMapping("")
+    @ApiOperation(ADDS_A_NEW_RECORD_TO + CUSTOMER_TABLE)
+    @PostMapping
     public ResponseEntity<Customer> create(@RequestBody Customer customer) throws Exception {
-        if (customer.getStatus().equalsIgnoreCase("LEGACY") || customer.getStatus().equalsIgnoreCase("MIGRATED")) {
+        if (customer.getStatus().equalsIgnoreCase(LEGACY) || customer.getStatus().equalsIgnoreCase(MIGRATED)) {
             return new ResponseEntity<>(customerService.create(customer), HttpStatus.CREATED);
         } else {
             throw new Exception("Invalid Status");
@@ -70,11 +73,11 @@ public class CustomerController {
      * @return ResponseEntity
      * @throws DbException
      */
-    @ApiOperation("Update a record in Customer Table")
-    @PutMapping("/{customerId}")
-    public ResponseEntity update(@PathVariable String customerId, @RequestBody Customer customer) throws Exception {
-        if (customer.getStatus().equalsIgnoreCase("LEGACY") || customer.getStatus().equalsIgnoreCase("MIGRATED")) {
-            customerService.updateTable(customerId, customer);
+    @ApiOperation(UPDATES_A_RECORD_IN + CUSTOMER_TABLE)
+    @PutMapping
+    public ResponseEntity update(@RequestBody Customer customer) throws Exception {
+        if (customer.getStatus().equalsIgnoreCase(LEGACY) || customer.getStatus().equalsIgnoreCase(MIGRATED)) {
+            customerService.updateTable(customer);
             return new ResponseEntity(HttpStatus.CREATED);
         } else {
             throw new Exception("Invalid Status");
@@ -87,8 +90,8 @@ public class CustomerController {
      * @return ResponseEntity
      * @throws DbException
      */
-    @ApiOperation("Deletes a record from Customer table")
-    @DeleteMapping("/{customer_id}")
+    @ApiOperation(DELETES_A_RECORD_FROM + CUSTOMER_TABLE)
+    @DeleteMapping(CUSTOMER_ID)
     public ResponseEntity delete(@PathVariable("customer_id") String customerId) throws Exception {
         customerService.deleteRow(customerId);
         return new ResponseEntity(HttpStatus.ACCEPTED);

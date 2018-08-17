@@ -37,7 +37,7 @@ public interface CustomerService {
      * Updates a row with new values
      * @param customer is the object with values to be updated
      */
-     void updateTable(String customerId, Customer customer) throws Exception;
+     void updateTable(Customer customer) throws Exception;
 
      /**
      * Deletes a row from cusotmer table

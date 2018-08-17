@@ -58,9 +58,9 @@ public class CustomerServiceImpl implements CustomerService {
      * @param customer contains values to be updated
      * @return saved row
      */
-    public void updateTable(String customerId, Customer customer) throws Exception {
-        if (recordExists(customerId)) {
-            Customer foundByCustomerId = customerRepository.getCustomerByCustomerId(customerId);
+    public void updateTable(Customer customer) throws Exception {
+        if (recordExists(customer.getCustomerId())) {
+            Customer foundByCustomerId = customerRepository.getCustomerByCustomerId(customer.getCustomerId());
             foundByCustomerId.setAccountNum(customer.getAccountNum());
             foundByCustomerId.setCreatedBy(customer.getCreatedBy());
             foundByCustomerId.setStatus(customer.getStatus());
