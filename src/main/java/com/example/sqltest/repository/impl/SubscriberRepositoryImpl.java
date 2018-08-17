@@ -1,8 +1,6 @@
 package com.example.sqltest.repository.impl;
 
-import com.example.sqltest.repository.CustomerRepository;
 import com.example.sqltest.repository.SubscriberRepository;
-import com.example.sqltest.repository.model.Customer;
 import com.example.sqltest.repository.model.Subscriber;
 import org.springframework.stereotype.Repository;
 

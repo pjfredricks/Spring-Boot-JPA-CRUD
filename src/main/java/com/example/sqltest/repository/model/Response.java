@@ -1,11 +1,9 @@
 package com.example.sqltest.repository.model;
 
-import com.example.sqltest.exception.DbException;
-//import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
+
+//import org.json.JSONObject;
 
 /**
  * A class with custom responseString messages and exception handling

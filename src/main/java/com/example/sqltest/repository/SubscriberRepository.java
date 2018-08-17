@@ -1,8 +1,6 @@
 package com.example.sqltest.repository;
 
 import com.example.sqltest.repository.model.Subscriber;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
