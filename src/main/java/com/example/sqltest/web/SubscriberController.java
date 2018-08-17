@@ -104,7 +104,7 @@ public class SubscriberController {
      * @throws DbException
      */
     @ApiOperation("Deletes a record from Subscriber table")
-    @DeleteMapping("/delete/{service_num}")
+    @DeleteMapping("/{service_num}")
     public ResponseEntity delete(@PathVariable("serviceNum") String serviceNum) throws Exception {
         subscriberService.deleteRow(serviceNum);
         return new ResponseEntity(HttpStatus.ACCEPTED);
