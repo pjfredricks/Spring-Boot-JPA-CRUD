@@ -31,7 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
             customerRepository.save(customer);
             return customer;
         }
-        return null;
+        throw new Exception("Record already exists");
     }
 
     /**
@@ -85,10 +85,10 @@ public class CustomerServiceImpl implements CustomerService {
     /**
      * Checks if a row exists in the table
      *
-     * @param cId is the customer ID of the row
+     * @param customerId is the customer ID of the row
      * @return true or false
      */
-    private boolean recordExists(String cId) throws Exception {
-        return customerRepository.getCustomerByCustomerId(cId) != null;
+    private boolean recordExists(String customerId) throws Exception {
+        return customerRepository.getCustomerByCustomerId(customerId) != null;
     }
 }

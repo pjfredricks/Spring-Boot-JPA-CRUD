@@ -31,16 +31,19 @@ public class CustomerController {
 
     /**
      * Lists all rows in customer table
+     *
      * @return ResponseEntity
      */
     @ApiOperation(RETRIEVES_ALL_RECORDS_FROM + CUSTOMER_TABLE)
     @GetMapping
     public ResponseEntity<List<Customer>> getCustomers() throws Exception {
-        return new ResponseEntity<>(customerService.getCustomers(), HttpStatus.OK);
+        List<Customer> customers = customerService.getCustomers();
+        return !customers.isEmpty() ? new ResponseEntity<>(customers, HttpStatus.OK) : new ResponseEntity<>(customers, HttpStatus.NO_CONTENT);
     }
 
     /**
      * Retrieves a record from Customer table by CustomerId
+     *
      * @param customerId
      * @return ResponseEntity
      * @throws Exception
@@ -48,11 +51,13 @@ public class CustomerController {
     @ApiOperation(RETRIEVES_ALL_RECORDS_FROM + CUSTOMER_TABLE + BY_CUSTOMER_ID)
     @GetMapping(CUSTOMER_ID)
     public ResponseEntity<Customer> getCustomerByCustomerId(@RequestParam String customerId) throws Exception {
-        return new ResponseEntity<>(customerService.getCustomerByCustomerId(customerId), HttpStatus.OK);
+        Customer customer = customerService.getCustomerByCustomerId(customerId);
+        return customer != null ? new ResponseEntity<>(customer, HttpStatus.OK) : new ResponseEntity<>(customer, HttpStatus.NOT_FOUND);
     }
 
     /**
      * Creates a new row if the values are validated successfully
+     *
      * @param customer is the row passed as parameter to this method
      * @return ResponseEntity
      * @throws DbException
@@ -69,6 +74,7 @@ public class CustomerController {
 
     /**
      * Updates an existing row based on customer_id
+     *
      * @param customer is the row retrieved from the database
      * @return ResponseEntity
      * @throws DbException
@@ -86,6 +92,7 @@ public class CustomerController {
 
     /**
      * Deletes a row from the table if it exists
+     *
      * @param customerId Customer ID of the row to be deleted
      * @return ResponseEntity
      * @throws DbException

@@ -17,7 +17,7 @@ import java.util.List;
 public class CustomerRepositoryImpl implements CustomerRepository {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Override
     public Customer getCustomerByCustomerId(String customerId) throws Exception{

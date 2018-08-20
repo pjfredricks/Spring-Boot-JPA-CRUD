@@ -35,7 +35,8 @@ public class SubscriberController {
     @ApiOperation(RETRIEVES_ALL_RECORDS_FROM + SUBSCRIBER_TABLE)
     @GetMapping
     public ResponseEntity<List<Subscriber>> getSubscribers() throws Exception {
-        return new ResponseEntity<>(subscriberService.getSubscribers(), HttpStatus.OK);
+        List<Subscriber> subscribers = subscriberService.getSubscribers();
+        return !subscribers.isEmpty() ? new ResponseEntity<>(subscribers, HttpStatus.OK) : new ResponseEntity<>(subscribers, HttpStatus.NO_CONTENT);
     }
 
     /**
@@ -46,22 +47,24 @@ public class SubscriberController {
      */
     @ApiOperation(RETRIEVES_ALL_RECORDS_FROM + SUBSCRIBER_TABLE + BY_CUSTOMER_ID)
     @GetMapping(CUSTOMER_ID)
-    public List<Subscriber> getSubscriberByCustomerId(@PathVariable("customerId") String customerId) throws Exception {
-        return subscriberService.getSubscriberByCustomerId(customerId);
+    public ResponseEntity<List<Subscriber>> getSubscriberByCustomerId(@PathVariable("customerId") String customerId) throws Exception {
+        List<Subscriber> subscribers = subscriberService.getSubscriberByCustomerId(customerId);
+        return !subscribers.isEmpty() ? new ResponseEntity<>(subscribers, HttpStatus.OK) : new ResponseEntity<>(subscribers, HttpStatus.NO_CONTENT);
     }
 
 
     /**
-     * Gets
+     * Gets Subscriber record by Service Num
      *
      * @param serviceNum
      * @return
      * @throws Exception
      */
-    @ApiOperation(RETRIEVES_ALL_RECORDS_FROM + SUBSCRIBER_TABLE + BY_SERVICE_NUM )
+    @ApiOperation(RETRIEVES_ALL_RECORDS_FROM + SUBSCRIBER_TABLE + BY_SERVICE_NUM)
     @GetMapping(SERVICE_NUM)
-    public Subscriber getSubscriberByServiceNum(@PathVariable("serviceNum") String serviceNum) throws Exception {
-        return subscriberService.getSubscriberByServiceNum(serviceNum);
+    public ResponseEntity<Subscriber> getSubscriberByServiceNum(@PathVariable("serviceNum") String serviceNum) throws Exception {
+        Subscriber subscriber = subscriberService.getSubscriberByServiceNum(serviceNum);
+        return subscriber != null ? new ResponseEntity<>(subscriber, HttpStatus.OK) : new ResponseEntity<>(subscriber, HttpStatus.NOT_FOUND);
     }
 
     /**
