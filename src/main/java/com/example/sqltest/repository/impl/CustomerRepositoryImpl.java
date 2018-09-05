@@ -37,7 +37,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public List<Customer> getCustomers() throws Exception{
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Customer.class);
-        Root<Customer> customerRoot = criteriaQuery.from(Customer.class);
         Query query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();
     }

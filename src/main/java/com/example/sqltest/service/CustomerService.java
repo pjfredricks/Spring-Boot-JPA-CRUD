@@ -1,47 +1,26 @@
 package com.example.sqltest.service;
 
 import com.example.sqltest.repository.model.Customer;
+import com.example.sqltest.web.model.CustomerDTO;
 
 import java.util.List;
 
 /**
  * Defines the various services performed on customer table
- * @see Customer
+ *
  * @author Jfredricks
  * @version 1.0
+ * @see Customer
  */
 public interface CustomerService {
 
-    /**
-     * Creates a new row in customer table
-     * @param customer is the object with values to be updated
-     */
-     Customer create(Customer customer) throws Exception;
+    CustomerDTO create(CustomerDTO customer) throws Exception;
 
-    /**
-     * Retrieves all records in customer table
-     * @return List
-     * @throws Exception
-     */
-    List<Customer> getCustomers() throws Exception;
+    List<CustomerDTO> getCustomers() throws Exception;
 
-    /**
-     * Retrieves Customer record by customerId
-     * @param customerId
-     * @return Customer
-     * @throws Exception
-     */
-    Customer getCustomerByCustomerId(String customerId) throws Exception;
+    CustomerDTO getCustomerByCustomerId(String customerId) throws Exception;
 
-     /**
-     * Updates a row with new values
-     * @param customer is the object with values to be updated
-     */
-     void updateTable(Customer customer) throws Exception;
+    void updateTable(CustomerDTO customerDTO) throws Exception;
 
-     /**
-     * Deletes a row from cusotmer table
-     * @param cId is the customerId of the row to be deleted
-     */
-    void deleteRow(String cId)  throws Exception ;
+    void deleteRow(String cId) throws Exception;
 }

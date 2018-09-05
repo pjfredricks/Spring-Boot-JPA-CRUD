@@ -1,8 +1,7 @@
 package com.example.sqltest.web;
 
-import com.example.sqltest.exception.DbException;
-import com.example.sqltest.repository.model.Customer;
 import com.example.sqltest.service.CustomerService;
+import com.example.sqltest.web.model.CustomerDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,74 +28,41 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    /**
-     * Lists all rows in customer table
-     *
-     * @return ResponseEntity
-     */
     @ApiOperation(RETRIEVES_ALL_RECORDS_FROM + CUSTOMER_TABLE)
     @GetMapping
-    public ResponseEntity<List<Customer>> getCustomers() throws Exception {
-        List<Customer> customers = customerService.getCustomers();
+    public ResponseEntity<List<CustomerDTO>> getCustomers() throws Exception {
+        List<CustomerDTO> customers = customerService.getCustomers();
         return !customers.isEmpty() ? new ResponseEntity<>(customers, HttpStatus.OK) : new ResponseEntity<>(customers, HttpStatus.NO_CONTENT);
     }
 
-    /**
-     * Retrieves a record from Customer table by CustomerId
-     *
-     * @param customerId
-     * @return ResponseEntity
-     * @throws Exception
-     */
     @ApiOperation(RETRIEVES_ALL_RECORDS_FROM + CUSTOMER_TABLE + BY_CUSTOMER_ID)
     @GetMapping(CUSTOMER_ID)
-    public ResponseEntity<Customer> getCustomerByCustomerId(@RequestParam String customerId) throws Exception {
-        Customer customer = customerService.getCustomerByCustomerId(customerId);
-        return customer != null ? new ResponseEntity<>(customer, HttpStatus.OK) : new ResponseEntity<>(customer, HttpStatus.NOT_FOUND);
+    public ResponseEntity<CustomerDTO> getCustomerByCustomerId(@RequestParam String customerId) throws Exception {
+        CustomerDTO customerDTO = customerService.getCustomerByCustomerId(customerId);
+        return customerDTO != null ? new ResponseEntity<>(customerDTO, HttpStatus.OK) : new ResponseEntity<>(customerDTO, HttpStatus.NOT_FOUND);
     }
 
-    /**
-     * Creates a new row if the values are validated successfully
-     *
-     * @param customer is the row passed as parameter to this method
-     * @return ResponseEntity
-     * @throws DbException
-     */
     @ApiOperation(ADDS_A_NEW_RECORD_TO + CUSTOMER_TABLE)
     @PostMapping
-    public ResponseEntity<Customer> create(@RequestBody Customer customer) throws Exception {
-        if (customer.getStatus().equalsIgnoreCase(LEGACY) || customer.getStatus().equalsIgnoreCase(MIGRATED)) {
-            return new ResponseEntity<>(customerService.create(customer), HttpStatus.CREATED);
+    public ResponseEntity<CustomerDTO> create(@RequestBody CustomerDTO customerDTO) throws Exception {
+        if (customerDTO.getStatus().equalsIgnoreCase(LEGACY) || customerDTO.getStatus().equalsIgnoreCase(MIGRATED)) {
+            return new ResponseEntity<>(customerService.create(customerDTO), HttpStatus.CREATED);
         } else {
             throw new Exception("Invalid Status");
         }
     }
 
-    /**
-     * Updates an existing row based on customer_id
-     *
-     * @param customer is the row retrieved from the database
-     * @return ResponseEntity
-     * @throws DbException
-     */
     @ApiOperation(UPDATES_A_RECORD_IN + CUSTOMER_TABLE)
     @PutMapping
-    public ResponseEntity update(@RequestBody Customer customer) throws Exception {
-        if (customer.getStatus().equalsIgnoreCase(LEGACY) || customer.getStatus().equalsIgnoreCase(MIGRATED)) {
-            customerService.updateTable(customer);
+    public ResponseEntity update(@RequestBody CustomerDTO customerDTO) throws Exception {
+        if (customerDTO.getStatus().equalsIgnoreCase(LEGACY) || customerDTO.getStatus().equalsIgnoreCase(MIGRATED)) {
+            customerService.updateTable(customerDTO);
             return new ResponseEntity(HttpStatus.CREATED);
         } else {
             throw new Exception("Invalid Status");
         }
     }
 
-    /**
-     * Deletes a row from the table if it exists
-     *
-     * @param customerId Customer ID of the row to be deleted
-     * @return ResponseEntity
-     * @throws DbException
-     */
     @ApiOperation(DELETES_A_RECORD_FROM + CUSTOMER_TABLE)
     @DeleteMapping(CUSTOMER_ID)
     public ResponseEntity delete(@PathVariable("customer_id") String customerId) throws Exception {

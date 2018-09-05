@@ -51,7 +51,6 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Subscriber.class);
-            Root<Subscriber> subscriberRoot = criteriaQuery.from(Subscriber.class);
             Query query = entityManager.createQuery(criteriaQuery);
             return (Subscriber) query.getSingleResult();
         } catch (Exception e) {

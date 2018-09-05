@@ -3,10 +3,13 @@ package com.example.sqltest.service.serviceimpl;
 import com.example.sqltest.repository.CustomerRepository;
 import com.example.sqltest.repository.model.Customer;
 import com.example.sqltest.service.CustomerService;
+import com.example.sqltest.web.model.CustomerDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of CustomerService
@@ -21,15 +24,18 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    ObjectMapper mapper;
+
     /**
      * Creates a new row and saves it
      *
-     * @param customer is saved to Customer table
+     * @param customerDTO is saved to Customer table
      */
-    public Customer create(Customer customer) throws Exception {
-        if (!recordExists(customer.getCustomerId())) {
-            customerRepository.save(customer);
-            return customer;
+    public CustomerDTO create(CustomerDTO customerDTO) throws Exception {
+        if (!recordExists(customerDTO.getCustomerId())) {
+            customerRepository.save(mapper.convertValue(customerDTO, Customer.class));
+            return customerDTO;
         }
         throw new Exception("Record already exists");
     }
@@ -37,8 +43,10 @@ public class CustomerServiceImpl implements CustomerService {
     /**
      * @return lists all the rows in Customer table
      */
-    public List<Customer> getCustomers() throws Exception {
-        return customerRepository.getCustomers();
+    public List<CustomerDTO> getCustomers() throws Exception {
+    return customerRepository.getCustomers().stream()
+            .map(CustomerDTO::map)
+            .collect(Collectors.toList());
     }
 
     /**
@@ -48,23 +56,24 @@ public class CustomerServiceImpl implements CustomerService {
      * @return customer
      * @throws Exception
      */
-    public Customer getCustomerByCustomerId(String customerId) throws Exception {
-        return customerRepository.getCustomerByCustomerId(customerId);
+    public CustomerDTO getCustomerByCustomerId(String customerId) throws Exception {
+        CustomerDTO customerDTO = mapper.convertValue(customerRepository.getCustomerByCustomerId(customerId), CustomerDTO.class);
+        return customerDTO;
     }
 
     /**
      * Updates a row in Customer table
      *
-     * @param customer contains values to be updated
+     * @param customerDTO contains values to be updated
      * @return saved row
      */
-    public void updateTable(Customer customer) throws Exception {
-        if (recordExists(customer.getCustomerId())) {
-            Customer foundByCustomerId = customerRepository.getCustomerByCustomerId(customer.getCustomerId());
-            foundByCustomerId.setAccountNum(customer.getAccountNum());
-            foundByCustomerId.setCreatedBy(customer.getCreatedBy());
-            foundByCustomerId.setStatus(customer.getStatus());
-            customerRepository.update(customer);
+    public void updateTable(CustomerDTO customerDTO) throws Exception {
+        if (recordExists(customerDTO.getCustomerId())) {
+            Customer foundByCustomerId = customerRepository.getCustomerByCustomerId(customerDTO.getCustomerId());
+            foundByCustomerId.setAccountNum(customerDTO.getAccountNum());
+            foundByCustomerId.setCreatedBy(customerDTO.getCreatedBy());
+            foundByCustomerId.setStatus(customerDTO.getStatus());
+            customerRepository.update(mapper.convertValue(customerDTO, Customer.class));
         }
     }
 
