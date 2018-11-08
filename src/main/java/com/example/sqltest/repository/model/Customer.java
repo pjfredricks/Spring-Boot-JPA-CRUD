@@ -1,6 +1,7 @@
 package com.example.sqltest.repository.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Set;
  */
 @Table(name = "customer")
 @Entity
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Customer {
 
     @Id
@@ -40,6 +42,13 @@ public class Customer {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Subscriber> subscriberSet;
+
+    public Customer(@NotNull String customerId, @NotNull String accountNum, @NotNull String status, @NotNull String createdBy) {
+        this.customerId = customerId;
+        this.accountNum = accountNum;
+        this.status = status;
+        this.createdBy = createdBy;
+    }
 
     /**
      * Getter method for accountNum

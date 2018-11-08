@@ -34,7 +34,10 @@ public class CustomerServiceImpl implements CustomerService {
      */
     public CustomerDTO create(CustomerDTO customerDTO) throws Exception {
         if (!recordExists(customerDTO.getCustomerId())) {
-            customerRepository.save(mapper.convertValue(customerDTO, Customer.class));
+            customerRepository.save(new Customer(customerDTO.getCustomerId()
+                    , customerDTO.getAccountNum()
+                    , customerDTO.getStatus()
+                    , customerDTO.getCreatedBy()));
             return customerDTO;
         }
         throw new Exception("Record already exists");

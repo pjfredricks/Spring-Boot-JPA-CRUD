@@ -22,7 +22,7 @@ import static com.example.sqltest.constants.URLConstants.*;
  */
 @Api
 @RestController
-@RequestMapping(BASE_URL)
+@RequestMapping(BASE_URL_CUSTOMER)
 public class CustomerController {
 
     @Autowired

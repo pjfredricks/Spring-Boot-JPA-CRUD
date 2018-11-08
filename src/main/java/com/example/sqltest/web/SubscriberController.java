@@ -21,7 +21,7 @@ import static com.example.sqltest.constants.URLConstants.*;
  * @version 1.0
  */
 @RestController
-@RequestMapping(BASE_URL)
+@RequestMapping(BASE_URL_SUBSCRIBER)
 public class SubscriberController {
 
     @Autowired
