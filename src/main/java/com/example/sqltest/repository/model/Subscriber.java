@@ -1,6 +1,7 @@
 package com.example.sqltest.repository.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
  */
 @Table(name = "subscriber")
 @Entity
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Subscriber {
 
     @Id

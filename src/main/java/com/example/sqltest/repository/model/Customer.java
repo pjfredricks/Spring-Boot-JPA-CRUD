@@ -43,7 +43,10 @@ public class Customer {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Subscriber> subscriberSet;
 
-    public Customer(@NotNull String customerId, @NotNull String accountNum, @NotNull String status, @NotNull String createdBy) {
+    public Customer() {
+    }
+
+    public Customer(@NotNull String customerId, String accountNum, @NotNull String status, @NotNull String createdBy) {
         this.customerId = customerId;
         this.accountNum = accountNum;
         this.status = status;

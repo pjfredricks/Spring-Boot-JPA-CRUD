@@ -5,6 +5,7 @@ import com.example.sqltest.repository.model.Subscriber;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -51,9 +52,14 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Subscriber.class);
+            Root<Subscriber> root = criteriaQuery.from(Subscriber.class);
             Query query = entityManager.createQuery(criteriaQuery);
             return (Subscriber) query.getSingleResult();
-        } catch (Exception e) {
+        }
+        catch (NoResultException e) {
+            return new Subscriber();
+        }
+        catch (Exception e) {
             throw new Exception(e.getCause());
         }
     }

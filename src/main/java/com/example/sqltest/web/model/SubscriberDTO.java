@@ -1,7 +1,6 @@
 package com.example.sqltest.web.model;
 
 public class SubscriberDTO {
-    private int rid;
     private String customerId;
     private String accountNum;
     private String status;
@@ -9,14 +8,6 @@ public class SubscriberDTO {
     private String serviceNum;
 
     public SubscriberDTO() {
-    }
-
-    public int getRid() {
-        return rid;
-    }
-
-    public void setRid(int rid) {
-        this.rid = rid;
     }
 
     public String getCustomerId() {
