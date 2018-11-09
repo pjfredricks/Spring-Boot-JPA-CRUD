@@ -8,15 +8,9 @@ import java.util.List;
  * Repository which extends CrudRepository
  */
 
-public interface CustomerRepository {
+public interface CustomerRepository extends CommonRepository {
 
     Customer getCustomerByCustomerId(String cId) throws Exception;
 
     List<Customer> getCustomers() throws Exception;
-
-    void save(Customer customer) throws Exception;
-
-    void update(Customer customer) throws Exception;
-
-    void delete(Customer customer) throws Exception;
 }

@@ -8,18 +8,11 @@ import java.util.List;
  * Repository which extends CrudRepository
  */
 
-public interface SubscriberRepository {
+public interface SubscriberRepository extends CommonRepository {
 
+    List<Subscriber> getSubscribers() throws Exception;
 
-    List<Subscriber> getSubscribers()  throws Exception;
+    List<Subscriber> getSubscriberByCustomerId(String customerId) throws Exception;
 
-    List<Subscriber> getSubscriberByCustomerId(String customerId)  throws Exception;
-
-     Subscriber getSubscriberByServiceNum(String serviceNum)  throws Exception;
-
-     void save(Subscriber subscriber)  throws Exception;
-
-     void update(Subscriber subscriber) throws Exception;
-
-     void delete(Subscriber subscriber) throws Exception;
+    Subscriber getSubscriberByServiceNum(String serviceNum) throws Exception;
 }

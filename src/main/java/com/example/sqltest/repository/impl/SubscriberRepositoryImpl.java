@@ -11,11 +11,10 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public class SubscriberRepositoryImpl implements SubscriberRepository {
+public class SubscriberRepositoryImpl extends CommonRepositoryImpl implements SubscriberRepository {
 
     @PersistenceContext
     EntityManager entityManager;
@@ -60,35 +59,6 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
             return new Subscriber();
         }
         catch (Exception e) {
-            throw new Exception(e.getCause());
-        }
-    }
-
-    @Override
-    @Transactional
-    public void save(Subscriber subscriber) throws Exception {
-        try {
-            entityManager.persist(subscriber);
-            entityManager.flush();
-        } catch (Exception e) {
-            throw new Exception(e.getCause());
-        }
-    }
-
-    @Override
-    public void update(Subscriber subscriber) throws Exception {
-        try {
-            entityManager.merge(subscriber);
-        } catch (Exception e) {
-            throw new Exception(e.getCause());
-        }
-    }
-
-    @Override
-    public void delete(Subscriber subscriber) throws Exception {
-        try {
-            entityManager.remove(subscriber);
-        } catch (Exception e) {
             throw new Exception(e.getCause());
         }
     }

@@ -10,11 +10,10 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public class CustomerRepositoryImpl implements CustomerRepository {
+public class CustomerRepositoryImpl extends CommonRepositoryImpl implements CustomerRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -40,36 +39,5 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         Root<Customer> root = criteriaQuery.from(Customer.class);
         Query query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();
-    }
-
-    @Override
-    @Transactional
-    public void save(Customer customer) throws Exception{
-        try{
-            entityManager.persist(customer);
-            entityManager.flush();
-        }catch (Exception e) {
-          throw new Exception(e.getCause());
-        }
-    }
-
-    @Override
-    @Transactional
-    public void update(Customer customer) throws Exception{
-        try{
-            entityManager.merge(customer);
-        }catch (Exception e) {
-            throw new Exception(e.getCause());
-        }
-    }
-
-    @Override
-    @Transactional
-    public void delete(Customer customer) throws Exception {
-        try{
-            entityManager.remove(customer);
-        } catch (Exception e) {
-            throw new Exception(e.getCause());
-        }
     }
 }
