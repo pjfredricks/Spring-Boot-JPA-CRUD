@@ -52,6 +52,7 @@ public class SubscriberRepositoryImpl extends CommonRepositoryImpl implements Su
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Subscriber.class);
             Root<Subscriber> root = criteriaQuery.from(Subscriber.class);
+            criteriaQuery.where(criteriaBuilder.equal(root.get("serviceNum"), serviceNum));
             Query query = entityManager.createQuery(criteriaQuery);
             return (Subscriber) query.getSingleResult();
         }
