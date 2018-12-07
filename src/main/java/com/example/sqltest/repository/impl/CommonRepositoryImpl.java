@@ -10,7 +10,7 @@ public class CommonRepositoryImpl implements CommonRepository {
 
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Override
     @Transactional
